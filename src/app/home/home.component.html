@@ -1,0 +1,39 @@
+<div class="container text-center">
+    <h1>Conversor de monedas</h1>
+    <section>
+        @for (option of optionsFilter; track option.value) {
+            <mat-radio-button [checked]="option.value === 'PHYSICAL'" (click)="loadCurrencies( option.value )" [value]="option.value">{{ option.name }}</mat-radio-button>
+        }
+    </section>
+    <section class="flex justify-center items-center">
+        <div>
+            <home-select-options (selectOption)="sourceOptionValue= $event" [currencyOptions]="currencies"></home-select-options>
+        </div>
+        <mat-icon class="ml-4 mr-4" aria-label="convert" fontIcon="sync_alt"></mat-icon>
+        <div> 
+            <home-select-options (selectOption)="outputOptionValue= $event" [currencyOptions]="currencies"></home-select-options>       
+        </div>
+    </section>
+    
+    <div>            
+        <label>Monto a convertir</label>
+        <div>
+            <mat-form-field>
+                <input class="items-center" matInput type="text" #inputToConvert>
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-raised-button color="primary" 
+                (click)="onConvertButton( inputToConvert.value )" 
+                [disabled]="(!sourceOptionValue || !outputOptionValue ) && !inputToConvert.value"
+                >
+                Convertir
+            </button>
+        </div>
+    </div>
+    <div class="mt-10">
+        <p class="text-8xl">{{ conversionResult |number: '1.2-2' }} {{ conversionResult ? outputOptionValue?.symbol : '' }}</p>
+    </div>
+</div>
+
+

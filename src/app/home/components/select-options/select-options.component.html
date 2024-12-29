@@ -1,0 +1,7 @@
+<mat-form-field>
+    <mat-select (selectionChange)="onSelectOption($event)">
+      @for (currency of currencyOptions; track currency) {
+        <mat-option [disabled]="currencyOptionSelected === currency.symbol" [value]="currency">{{ currency.label }}</mat-option>
+      }
+    </mat-select>
+</mat-form-field>  
